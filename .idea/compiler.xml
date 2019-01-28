@@ -6,7 +6,10 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="OAuth2" />
+        <module name="gateway" />
+        <module name="resource" />
+        <module name="resource2" />
+        <module name="uaa" />
       </profile>
     </annotationProcessing>
   </component>

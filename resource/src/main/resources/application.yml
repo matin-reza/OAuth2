@@ -1,0 +1,19 @@
+server:
+  port: 8085
+security:
+  oauth2:
+    resource:
+      user-info-uri: http://localhost:9191/uaa/user
+
+spring:
+  datasource:
+    driver-class-name: oracle.jdbc.OracleDriver
+    url: jdbc:oracle:thin:@192.168.192.133:1521:hamed
+    username: test
+    password: test
+  jpa:
+    show-sql: true
+
+logging:
+  level:
+    org.springframework.security: DEBUG

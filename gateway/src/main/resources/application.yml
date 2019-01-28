@@ -1,0 +1,20 @@
+zuul:
+  routes:
+    resource:
+      url: http://localhost:8085
+    resource2:
+      url: http://localhost:8086
+security:
+  oauth2:
+    resource:
+      user-info-uri: http://localhost:9191/uaa/user
+    client:
+      accessTokenUri: http://localhost:9191/uaa/oauth/token
+      userAuthorizationUri: http://localhost:9191/uaa/oauth/authorize
+      clientId: web
+      clientSecret: secret
+      grant-type: authorization_code
+
+logging:
+  level:
+    org.springframework.security: DEBUG
