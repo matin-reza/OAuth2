@@ -13,7 +13,7 @@ security:
       userAuthorizationUri: http://localhost:9191/uaa/oauth/authorize
       clientId: web
       clientSecret: secret
-      grant-type: authorization_code
+      grant-type: authorization_code,refresh_token
 
 logging:
   level:

@@ -28,11 +28,11 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import java.util.ArrayList;
 import java.util.List;
 
-@EnableOAuth2Client
-@Configuration
+//@EnableOAuth2Client
+//@Configuration
 public class OauthClientConfig extends ResourceServerConfigurerAdapter {
 
-    private static final String SERVER_RESOURCE_ID = "resource";
+    /*private static final String SERVER_RESOURCE_ID = "resource";
 
     private final AppConfig appConfig;
 
@@ -48,7 +48,7 @@ public class OauthClientConfig extends ResourceServerConfigurerAdapter {
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
         resources.tokenStore(tokenStore).resourceId(SERVER_RESOURCE_ID);
-    }
+    }*/
 
 }
 

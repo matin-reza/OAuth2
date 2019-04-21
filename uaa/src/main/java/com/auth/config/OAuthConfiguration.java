@@ -5,9 +5,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
+import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
@@ -26,26 +29,27 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 public class OAuthConfiguration extends AuthorizationServerConfigurerAdapter {
 
     //private final AuthenticationManager authenticationManager;
-    private final AppConfig appConfig;
+    //private final AppConfig appConfig;
 
     @Autowired
-    public OAuthConfiguration(AppConfig appConfig) {
-        //this.authenticationManager = authenticationManager;
-        this.appConfig = appConfig;
-    }
+    private PasswordEncoder passwordEncoder;
+
 
     @Autowired
+    private UserDetailsServiceImpl userDetailsService;
+
+   /* @Autowired
     private TokenStore tokenStore;
 
     @Autowired
-    private ApprovalStore approvalStore;
+    private ApprovalStore approvalStore;*/
 
     @Autowired
     private ClientDetailsService clientDetailsService;
 
-    @Autowired
+  /*  @Autowired
     private UserApprovalHandler userApprovalHandler;
-
+*/
 
 
     /*@Override
@@ -57,16 +61,24 @@ public class OAuthConfiguration extends AuthorizationServerConfigurerAdapter {
                 .secret("acmesecret").autoApprove(true);
     }
 
-
+*/
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints.userDetailsService(userDetailsService);
-    }*/
+    }
 
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients.jdbc(appConfig.dataSource());
+        //clients.jdbc(appConfig.dataSource());
+        clients.inMemory()
+                .withClient("web")
+                .secret(new HashingClass().encode("secret"))
+                .authorizedGrantTypes("authorization_code")
+                .scopes("read,write")
+                .accessTokenValiditySeconds(9)
+                .refreshTokenValiditySeconds(9);
+
     }
 
     @Override
@@ -75,11 +87,11 @@ public class OAuthConfiguration extends AuthorizationServerConfigurerAdapter {
          * Allow our tokens to be delivered from our token access point as well as for tokens
          * to be validated from this point
          */
-        security.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()");
+        security.passwordEncoder(passwordEncoder).tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()");
         ;
     }
 
-    @Override
+   /* @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints.approvalStore(approvalStore).tokenStore(tokenStore).userApprovalHandler(userApprovalHandler);
                 //.authenticationManager(authenticationManager);
@@ -103,7 +115,7 @@ public class OAuthConfiguration extends AuthorizationServerConfigurerAdapter {
         store.setTokenStore(tokenStore);
         return store;
     }
-
+*/
 
 }
 
