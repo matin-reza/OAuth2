@@ -74,7 +74,7 @@ public class OAuthConfiguration extends AuthorizationServerConfigurerAdapter {
         clients.inMemory()
                 .withClient("web")
                 .secret(new HashingClass().encode("secret"))
-                .authorizedGrantTypes("authorization_code")
+                .authorizedGrantTypes("authorization_code","refresh_token")
                 .scopes("read,write")
                 .accessTokenValiditySeconds(9)
                 .refreshTokenValiditySeconds(9);
