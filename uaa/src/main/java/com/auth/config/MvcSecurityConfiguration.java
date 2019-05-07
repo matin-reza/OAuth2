@@ -7,13 +7,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 
 
 @Configuration
+@EnableWebSecurity
 public class MvcSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 
@@ -32,9 +33,10 @@ public class MvcSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                 .antMatchers("/webjars/**", "/login**").permitAll()
                 .anyRequest().authenticated()
-                .and().formLogin().successHandler((httpServletRequest, httpServletResponse, authentication) -> {
-            System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-            new SavedRequestAwareAuthenticationSuccessHandler().onAuthenticationSuccess(httpServletRequest, httpServletResponse, authentication);
+          .and()
+                .formLogin().successHandler((httpServletRequest, httpServletResponse, authentication) -> {
+                        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+                        new SavedRequestAwareAuthenticationSuccessHandler().onAuthenticationSuccess(httpServletRequest, httpServletResponse, authentication);
         });
     }
 
