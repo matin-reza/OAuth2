@@ -4,10 +4,12 @@ zuul:
       url: http://localhost:8085
     resource2:
       url: http://localhost:8086
+  sensitive-headers:
 security:
   oauth2:
     resource:
       user-info-uri: http://localhost:9191/uaa/user
+
     client:
       accessTokenUri: http://localhost:9191/uaa/oauth/token
       userAuthorizationUri: http://localhost:9191/uaa/oauth/authorize
