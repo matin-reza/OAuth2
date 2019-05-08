@@ -51,7 +51,7 @@ public class OAuthConfiguration extends AuthorizationServerConfigurerAdapter {
 */
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-        endpoints.userDetailsService(userDetailsService);
+        endpoints.prefix("/rest").userDetailsService(userDetailsService);
     }
 
 
@@ -61,7 +61,7 @@ public class OAuthConfiguration extends AuthorizationServerConfigurerAdapter {
         clients.inMemory()
                 .withClient("web")
                 .secret(new HashingClass().encode("secret"))
-                .authorizedGrantTypes("authorization_code","refresh_token")
+                .authorizedGrantTypes("authorization_code", "refresh_token")
                 .scopes("read,write")
                 .redirectUris("http://localhost:8080/login");
 

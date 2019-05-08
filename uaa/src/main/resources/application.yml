@@ -14,3 +14,8 @@ server:
 logging:
   level:
     org.springframework.security: DEBUG
+spring:
+  mvc:
+    servlet:
+      path: /rest
+
