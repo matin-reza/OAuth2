@@ -51,7 +51,7 @@ public class OAuthConfiguration extends AuthorizationServerConfigurerAdapter {
 */
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-        endpoints.prefix("/rest").userDetailsService(userDetailsService);
+        endpoints.userDetailsService(userDetailsService);
     }
 
 
