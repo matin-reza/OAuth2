@@ -40,7 +40,7 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
             .and()
                 .logout()
-                .logoutSuccessUrl("/resource/reza")
+                .logoutSuccessUrl("/uaa/login")
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
     }
 

@@ -4,6 +4,9 @@ zuul:
       url: http://localhost:8085
     resource2:
       url: http://localhost:8086
+    uaa:
+      path: /uaa/**
+      url: http://localhost:9191/uaa
   sensitive-headers:
 security:
   oauth2:
