@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 
 @Configuration
@@ -37,7 +38,11 @@ public class MvcSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .formLogin().successHandler((httpServletRequest, httpServletResponse, authentication) -> {
                         System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
                         new SavedRequestAwareAuthenticationSuccessHandler().onAuthenticationSuccess(httpServletRequest, httpServletResponse, authentication);
-        });
+                })
+          .and()
+                .logout()
+                .logoutSuccessUrl("/login")
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"));;
     }
 
 
